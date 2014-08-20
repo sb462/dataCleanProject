@@ -11,3 +11,8 @@ featureTestDataURL <- "./data/UCI HAR Dataset/test/X_test.txt"
 featureTestDataFrame <- read.table(featureTestDataURL,header=FALSE)
 setnames(featureTestDataFrame,featureHeader)
 featureCompleteDataFrame<- rbind(featureDataFrame,featureTestDataFrame, deparse.level=0)
+?grep
+mean_header <- grep("mean",featureHeader) 
+std_header <- grep("std",featureHeader)
+required_vec <- c(mean_header,std_header)
+req_frame <- featureCompleteDataFrame[required_vec]
