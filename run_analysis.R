@@ -12,11 +12,11 @@ featureTestDataFrame <- read.table(featureTestDataURL,header=FALSE)
 setnames(featureTestDataFrame,featureHeader)
 featureCompleteDataFrame<- rbind(featureDataFrame,featureTestDataFrame, deparse.level=0)
 ?grep
-mean_header <- grep("mean",featureHeader) 
-std_header <- grep("std",featureHeader)
+mean_header <- grep("mean()",featureHeader,fixed=TRUE) 
+std_header <- grep("std()",featureHeader)
 required_vec <- c(mean_header,std_header)
 req_frame <- featureCompleteDataFrame[required_vec]
-activityName <- read.table("./data/UCI HAR Dataset/activity_labels.txt")
+activityName <- read.table("./data/UCI HAR Dataset/activity_labels.txt",stringsAsFactors=FALSE)
 setnames(activityName, c("serialNo","activity"))
 subjectTrainData <- read.table("./data/UCI HAR Dataset/train/subject_train.txt")
 subjectTestData <- read.table("./data/UCI HAR Dataset/test/subject_test.txt")
@@ -32,3 +32,13 @@ activityCompleteData <- rbind(activityTrainData,activityTestData)
 setnames(activityCompleteData,c("activityNameDataFrame"))
 rm(activityTrainData,activityTestData,featureTestDataFrame,featureDataFrame,subjectTrainData,subjectTestData)
 ?lapply
+func <- function(x){if (x==activityName$serialNo){x<- activityName$activity}}
+activityVector <- activityCompleteData$activityNameDataFrame
+
+for (i in 1:6){
+  activityVector <-replace(activityVector,which(activityVector==i), activityName$activity[i])
+}
+activityNameDF <- data.frame(activityVector)
+
+setnames(activityNameDF,c("activityType"))
+allCompleteDataSet <- cbind(subjectCompleteData,activityNameDF,req_frame)
