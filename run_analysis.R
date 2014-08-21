@@ -46,7 +46,7 @@ rm(activityTrainData,activityTestData,featureTestDataFrame,featureDataFrame,subj
 # replacing activity indicators with descriptive activity names
 activityVector <- activityCompleteData$activityNameDataFrame
 
-for (i in 1:6){s
+for (i in 1:6){
   activityVector <-replace(activityVector,which(activityVector==i), activityName$activity[i])
 }
 activityNameDF <- data.frame(activityVector)
