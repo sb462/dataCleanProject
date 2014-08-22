@@ -57,7 +57,11 @@ allCompleteDataSet <- cbind(subjectCompleteData,activityNameDF,req_frame)
 
 #creating tidy data taking mean for every subject and every activity
 tData <- aggregate(allCompleteDataSet[-c(1:2)],by = list(allCompleteDataSet$subjectSerialNo,allCompleteDataSet$activityType), mean)
-library(data.table)
 setnames(tData,1:2, c("subjectID", "subjectActivity"))
 #writing output data to a txt file
 write.table(tData, file = "./data/activityDataTidy.txt", sep ="\t",row.names = FALSE)
+
+#writing variable names for codebook
+code_vec <- colnames(tData)
+write.table (code_vec, file = "./data/codebook.txt", row.names = FALSE)
+
