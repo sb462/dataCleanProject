@@ -8,3 +8,5 @@
 3. codebook.txt- codebook explaining the variables in tidy data set
 
 The data is to be downloaded and placed into ./data folder. The script scans the files, imports the data into R-objects and produces a cleaned output data of required variables.
+
+The script is explained through comments inline.
